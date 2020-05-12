@@ -1,0 +1,19 @@
+ const express = require('express');
+ const router = express.Router();
+ const Data = require('..')
+//getting a list
+ router.get('/nin',function(req,res){
+   res.send({type:'GET'});
+ });
+//adding
+ router.post('/nin',function(req,res){
+   Data.create(req.body).then(function(data){
+     res.send(data);
+   });
+ });
+ //updating
+ router.put('/nin/:id',function(req,res){
+   res.send({type:'PUT'});
+ });
+
+ module.exports = router;

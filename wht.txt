@@ -1,0 +1,50 @@
+var updateInterval = 100;
+
+/* Rickshaw.js initialization */
+var chart2 = new Rickshaw.Graph({
+    element: document.querySelector("#demo_chart"),
+    width: "600",
+    height: "600",
+    renderer: "line",
+    min: "0",
+    max: "70",
+    series: new Rickshaw.Series.FixedDuration([{
+        name: 'one',
+        color: '#446CB3'
+    }], undefined, {
+        timeInterval: updateInterval,
+        maxDataPoints: 100
+    })
+});
+
+var y_axis = new Rickshaw.Graph.Axis.Y({
+    graph: chart2,
+    orientation: 'left',
+    tickFormat: function (y) {
+        return y.toFixed(2);
+    },
+    ticks: 5,
+    element: document.getElementById('y_axis'),
+});
+
+
+/* Timer function that is called every @updateInterval milliseconds*/
+setInterval(function () {
+    insertRandomDatapoints();
+}, updateInterval);
+
+
+
+/* Function that generates into the chart */
+function insertRandomDatapoints() {
+    for (var i = 0; i < 20; i++) {
+        let tmpData = {
+            one: Math.floor(Math.random() * 35) + 10
+        };
+        chart2.series.addData(tmpData);
+    }
+    console.log(chart2)
+    chart2.render();
+};
+
+setInterval(insertRandomDatapoints, updateInterval);
